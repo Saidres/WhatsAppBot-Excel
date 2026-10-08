@@ -1,7 +1,7 @@
 import { addKeyword } from '@builderbot/bot';
 import { config } from '../config.js';
 
-export const catalogFlow = addKeyword(['1', 'servicios', 'catalogo', 'catálogo'])
+export const catalogFlow = addKeyword(['1', 'servicios', 'catalogo', 'catálogo', 'informacion', 'información', 'info', 'informes'])
   .addAnswer(
     [
       `🚀 *Nuestros Servicios en ${config.business.name}*:`,

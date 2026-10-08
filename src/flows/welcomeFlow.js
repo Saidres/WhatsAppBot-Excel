@@ -18,6 +18,10 @@ export const welcomeText = [
   '👉 Escribe el *número* de tu preferencia o escribe tu consulta directamente.'
 ].join('\n');
 
+// Control de memoria para evitar enviar el menú repetidas veces en ráfagas rápidas
+const lastMenuTimestamps = new Map();
+const MENU_COOLDOWN_MS = 2 * 60 * 1000; // 2 minutos de enfriamiento
+
 /**
  * Flujo activado por palabras clave explícitas de saludo o navegación
  */
@@ -36,7 +40,23 @@ export const welcomeFlow = addKeyword([
   'hello',
   'ayuda',
   'opciones'
-]).addAnswer(welcomeText, { delay: config.antiBan.delayMs });
+]).addAction(async (ctx, { flowDynamic }) => {
+  const user = ctx.from;
+  const now = Date.now();
+  const lastSent = lastMenuTimestamps.get(user) || 0;
+  const text = (ctx.body || '').trim().toLowerCase();
+
+  const isExplicitMenu = ['menu', 'menú', 'inicio', 'opciones'].includes(text);
+
+  // Si ya se le envió el menú hace menos de 2 minutos y no lo solicitó explícitamente con "menu"
+  if (!isExplicitMenu && (now - lastSent < MENU_COOLDOWN_MS)) {
+    await flowDynamic('👆 ¡Hola de nuevo! Ya te compartí las opciones arriba. Escribe el *número* (1 al 5) o dime directamente qué necesitas.');
+    return;
+  }
+
+  lastMenuTimestamps.set(user, now);
+  await flowDynamic(welcomeText);
+});
 
 /**
  * Flujo fallback inteligente para cualquier mensaje no contemplado en el menú
@@ -44,10 +64,19 @@ export const welcomeFlow = addKeyword([
 export const defaultFallbackFlow = addKeyword(EVENTS.WELCOME)
   .addAction(async (ctx, { flowDynamic }) => {
     const userMessage = ctx.body?.trim() || '';
+    const lower = userMessage.toLowerCase();
+    const user = ctx.from;
+    const now = Date.now();
+    const lastSent = lastMenuTimestamps.get(user) || 0;
 
     // Si es un saludo común que no entró por keyword exacta
-    const lower = userMessage.toLowerCase();
-    if (lower.length <= 4 || ['que tal', 'hey', 'alo', 'saludos'].some(w => lower.includes(w))) {
+    if (lower.length <= 4 || ['que tal', 'hey', 'alo', 'saludos', 'buen día'].some(w => lower.includes(w))) {
+      if (now - lastSent < MENU_COOLDOWN_MS) {
+        await flowDynamic('👆 ¡Hola! Ya te compartí las opciones arriba. Escribe el *número* (1 al 5) de lo que necesitas.');
+        return;
+      }
+
+      lastMenuTimestamps.set(user, now);
       await flowDynamic(welcomeText);
       return;
     }
