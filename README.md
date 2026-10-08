@@ -17,14 +17,14 @@ Solución integral y de código abierto para la **automatización de respuestas 
 | **Pérdida de clientes fuera de horario:** Consultas desatendidas por las noches y fines de semana. | **Atención 24/7:** Respuestas inmediatas automatizadas ante cualquier mensaje entrante. |
 | **Altos costos en plataformas SaaS:** Herramientas como ManyChat o Landbot cobran tarifas recurrentes elevadas. | **Cero Inversión Inicial ($0):** Utiliza tecnologías Open Source (Node.js + Baileys) sin cuotas mensuales. |
 | **Riesgo de bloqueo o baneo de número:** Bots agresivos son detectados como spam por WhatsApp. | **Diseño Anti-Ban:** Respuestas únicamente entrantes (*Inbound*), tiempos de espera simulados (*delays* humanos de 1.2s) y navegación conversacional no invasiva. |
-| **Pérdida de datos de prospectos:** Consultas dispersas en chats individuales sin seguimiento. | **Captura estructurada de leads:** Registro automatizado de datos de contacto y requerimientos en `data/leads.json`. |
+| **Pérdida de datos de prospectos:** Consultas dispersas en chats individuales sin seguimiento. | **Captura estructurada en Excel y JSON:** Registro automatizado de datos de contacto y requerimientos en `data/leads.xlsx` y `data/leads.json`. |
 
 ---
 
 ## ⚡ Características Principales
 
 1. **📋 Menú Interactivo Dinámico:** Opciones rápidas para consultar catálogo de servicios, horarios de atención y preguntas frecuentes (FAQ).
-2. **🎯 Captura de Leads Multi-Paso:** Formulario conversacional interactivo que solicita nombre, medio de contacto y requerimiento del cliente, almacenándolo automáticamente.
+2. **📊 Captura de Leads Directa a Excel (.xlsx):** Formulario conversacional interactivo que solicita nombre, medio de contacto y requerimiento del cliente, guardándolo al instante en una hoja de cálculo con formato y encabezados estilizados.
 3. **👤 Derivación a Asesor Humano:** Canalización formal cuando el cliente requiere atención personalizada o soporte especializado.
 4. **🧠 Módulo de Respuestas Inteligentes:**
    - Modo Base ($0): Detección por palabras clave de intención (precios, horarios, ubicación).

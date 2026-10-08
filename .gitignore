@@ -18,6 +18,8 @@ yarn-error.log*
 
 # Datos generados en ejecución
 data/leads.json
+data/leads.xlsx
+*.xlsx
 !data/.gitkeep
 
 # IDE y Sistema Operativo

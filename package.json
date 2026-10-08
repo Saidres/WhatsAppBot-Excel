@@ -12,6 +12,7 @@
     "@builderbot/bot": "^1.4.4",
     "@builderbot/provider-baileys": "^1.4.4",
     "@google/generative-ai": "^0.24.1",
-    "dotenv": "^18.0.6"
+    "dotenv": "^18.0.6",
+    "exceljs": "^4.4.0"
   }
 }
