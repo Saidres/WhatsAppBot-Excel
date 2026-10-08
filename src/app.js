@@ -9,6 +9,25 @@ import { faqFlow } from './flows/faqFlow.js';
 import { leadFlow } from './flows/leadFlow.js';
 import { advisorFlow } from './flows/advisorFlow.js';
 
+// Capturar rechazos y excepciones no controladas para evitar que caídas de red o timeouts cierren el proceso
+process.on('unhandledRejection', (reason) => {
+  const msg = reason?.message || String(reason);
+  if (msg.includes('Queue item timeout')) {
+    console.warn('⚠️ [Aviso de Cola]: Un mensaje tardó más de lo esperado en procesarse y fue omitido de la cola.');
+  } else {
+    console.warn('⚠️ [Advertencia]: Rechazo de promesa no controlado:', msg);
+  }
+});
+
+process.on('uncaughtException', (err) => {
+  const msg = err?.message || String(err);
+  if (msg.includes('Queue item timeout')) {
+    console.warn('⚠️ [Aviso de Cola]: Timeout en cola prevenido con éxito.');
+  } else {
+    console.error('❌ [Error no controlado]:', msg);
+  }
+});
+
 const main = async () => {
   console.log('====================================================');
   console.log('🚀 INICIANDO BOT DE WHATSAPP (SOLUCIÓN CERO COSTO)');
@@ -29,11 +48,19 @@ const main = async () => {
   ]);
   const adapterProvider = createProvider(BaileysProvider);
 
-  const { httpServer } = await createBot({
-    flow: adapterFlow,
-    provider: adapterProvider,
-    database: adapterDB,
-  });
+  const { httpServer } = await createBot(
+    {
+      flow: adapterFlow,
+      provider: adapterProvider,
+      database: adapterDB,
+    },
+    {
+      queue: {
+        timeout: 90000, // 90 segundos para permitir sincronización inicial sin cortes
+        concurrencyLimit: 25,
+      },
+    }
+  );
 
   httpServer(+config.port);
   console.log(`🌐 Servidor HTTP activo en: http://localhost:${config.port}`);
