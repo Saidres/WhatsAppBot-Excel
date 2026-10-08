@@ -120,19 +120,6 @@ npm start
 
 ---
 
-## 💼 Cómo presentar este proyecto a un cliente o propuesta freelance
-
-Si estás aplicando a ofertas de trabajo como:
-> *"Automatización de Respuestas en Whatsapp sin Inversión Inicial"*
-
-Puedes destacar en tu propuesta:
-1. **Compromiso $0:** La solución corre en Node.js sobre Baileys y almacena datos localmente, evitando costos fijos de servidores de bases de datos o plataformas de terceros.
-2. **Cuidado del número:** Explicas proactivamente que el sistema incorpora *delays* humanos de 1200ms y opera bajo modelo *Inbound* para proteger la reputación del número de WhatsApp.
-3. **Escalabilidad:** Si el negocio escala en el futuro a miles de mensajes diarios, la arquitectura modular permite migrar fácilmente hacia la API Oficial de Meta (WhatsApp Cloud API) sin rehacer la lógica de flujos.
-4. **Entrega de valor inmediata:** Registro estructurado de cada lead capturado para que el equipo comercial pueda hacer seguimiento de ventas.
-
----
-
 ## 📄 Licencia
 
 Este proyecto está bajo la Licencia [MIT](LICENSE). Puedes utilizarlo, modificarlo y adaptarlo libremente para proyectos comerciales y personales.
