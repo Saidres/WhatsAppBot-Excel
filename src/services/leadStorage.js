@@ -3,6 +3,7 @@ import { existsSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import ExcelJS from 'exceljs';
+import { config } from '../config.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -69,7 +70,39 @@ async function appendLeadToExcel(newLead) {
 }
 
 /**
- * Guarda un lead capturado por el bot en archivo JSON y en Excel simultáneamente
+ * Envía el lead al Webhook de Google Sheets si está configurado en .env
+ */
+async function syncToGoogleSheets(leadData) {
+  const webhookUrl = config.sheets?.webhookUrl;
+  if (!webhookUrl) return;
+
+  try {
+    const response = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        date: new Date().toLocaleString('es-ES'),
+        name: leadData.name || 'No especificado',
+        phone: leadData.phone ? String(leadData.phone) : '',
+        contact: leadData.contact || '',
+        requirement: leadData.requirement || ''
+      })
+    });
+
+    if (response.ok) {
+      console.log('☁️ Lead sincronizado con Google Sheets en la nube exitosamente.');
+    } else {
+      console.warn('⚠️ Google Sheets Webhook respondió con estado:', response.status);
+    }
+  } catch (err) {
+    console.warn('⚠️ No se pudo sincronizar con Google Sheets (verifica conexión o URL):', err.message);
+  }
+}
+
+/**
+ * Guarda un lead capturado por el bot en archivo JSON, Excel local y Google Sheets en la nube
  */
 export async function saveLead(leadData) {
   try {
@@ -92,8 +125,11 @@ export async function saveLead(leadData) {
     leads.push(newLead);
     await fs.writeFile(LEADS_FILE, JSON.stringify(leads, null, 2), 'utf-8');
 
-    // Guardar también en formato Excel (.xlsx)
+    // 1. Guardar en formato Excel (.xlsx) local
     await appendLeadToExcel(newLead);
+
+    // 2. Sincronizar con Google Sheets en la nube (si hay Webhook configurado)
+    await syncToGoogleSheets(newLead);
 
     return newLead;
   } catch (err) {

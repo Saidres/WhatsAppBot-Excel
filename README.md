@@ -24,7 +24,7 @@ Solución integral y de código abierto para la **automatización de respuestas 
 ## ⚡ Características Principales
 
 1. **📋 Menú Interactivo Dinámico:** Opciones rápidas para consultar catálogo de servicios, horarios de atención y preguntas frecuentes (FAQ).
-2. **📊 Captura de Leads Directa a Excel (.xlsx):** Formulario conversacional interactivo que solicita nombre, medio de contacto y requerimiento del cliente, guardándolo al instante en una hoja de cálculo con formato y encabezados estilizados.
+2. **📊 Captura de Leads a Excel (.xlsx) y Google Sheets en la nube:** Formulario conversacional interactivo que solicita nombre, medio de contacto y requerimiento, guardándolo tanto en una hoja de cálculo local como sincronizándolo en tiempo real con **Google Sheets** (ver [Guía de Google Sheets](docs/GOOGLE_SHEETS_SETUP.md)).
 3. **👤 Derivación a Asesor Humano:** Canalización formal cuando el cliente requiere atención personalizada o soporte especializado.
 4. **🧠 Módulo de Respuestas Inteligentes:**
    - Modo Base ($0): Detección por palabras clave de intención (precios, horarios, ubicación).

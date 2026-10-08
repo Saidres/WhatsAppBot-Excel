@@ -18,5 +18,9 @@ export const config = {
   ai: {
     // Si se proporciona una API key gratuita de Google AI Studio, activará respuestas con IA
     geminiApiKey: process.env.GEMINI_API_KEY || ''
+  },
+  sheets: {
+    // URL del Webhook de Google Apps Script para sincronización en la nube con Google Sheets
+    webhookUrl: process.env.GOOGLE_SHEET_WEBHOOK_URL || ''
   }
 };
