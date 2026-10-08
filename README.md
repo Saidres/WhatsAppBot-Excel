@@ -6,6 +6,8 @@
 [![Costo Operativo](https://img.shields.io/badge/Costo%20Inicial-%240%20USD-success)](#)
 [![Licencia](https://img.shields.io/badge/Licencia-MIT-green)](LICENSE)
 
+![WhatsApp Bot Showcase](portada_portafolio.jpg)
+
 Solución integral y de código abierto para la **automatización de respuestas en WhatsApp** diseñada para emprendimientos y PyMEs. Permite gestionar consultas frecuentes, exhibir servicios, capturar clientes potenciales (*leads*) y canalizar soporte humano sin incurrir en costos de suscripción mensual ni APIs de pago.
 
 ---

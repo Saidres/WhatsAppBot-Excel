@@ -9,6 +9,7 @@ bot_sessions/
 baileys_auth_info/
 session*/
 *.session
+bot.qr.png
 
 # Logs
 npm-debug.log*
